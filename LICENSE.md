@@ -1,6 +1,6 @@
 The BCBIStats.jl package is licensed under the MIT "Expat" License:
 
-> Copyright (c) 2016: Isa Restrepo.
+> Copyright (c) 2016: Brown Center for Biomedical Informatics (BCBI).
 >
 > Permission is hereby granted, free of charge, to any person obtaining
 > a copy of this software and associated documentation files (the
