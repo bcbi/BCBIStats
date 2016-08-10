@@ -2,16 +2,16 @@ using BCBIStats.COOccur
 using StatsBase
 
 #Co-occurrence matrix
-# occur_file = "/Users/isa/Dropbox/BrownAgain/Projects/BCBI/test/occur_sp.jdl"
-# labels_file = "/Users/isa/Dropbox/BrownAgain/Projects/BCBI/test/mesh2ind.jdl"
-#
-# occur = read_sp_occur(occur_file)
-# labels = read_occur_label_dict(labels_file)
-#
-# COO = occur2coo(occur, label2ind)
-#
-# corr = corrcoef(occur)
-# pmi = pmi(COO.coo_matrix)
+occur_file = "/Users/isa/Dropbox/BrownAgain/Projects/BCBI/test/occur_sp.jdl"
+labels_file = "/Users/isa/Dropbox/BrownAgain/Projects/BCBI/test/mesh2ind.jdl"
+
+occur = read_sp_occur(occur_file)
+label2ind = read_occur_label_dict(labels_file)
+
+COO = occur2coo(occur, label2ind)
+
+corr = corrcoef(occur)
+pmi = pmi(COO.coo_matrix)
 
 #Contingency
 x=[1,0,0,1,0,1,1,0,0,1,0,1,1,1,1,1,1,1,0,0,0,0,1,0,1,1,0,0,1,0,1]

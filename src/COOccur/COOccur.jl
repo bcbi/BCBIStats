@@ -9,8 +9,8 @@ using StatsBase
 type COOccurence
     "coo_matrix"
     coo_matrix::SparseMatrixCSC{Float64,Int64}
-    "labels"
-    labels::Array{ASCIIString}
+    "ind2labels"
+    ind2labels::Dict{Int, ASCIIString}
 end
 
 # Note: Sample input occurrance files are those generated with PubMedMiner.jl
@@ -22,13 +22,13 @@ function occur2coo(occur, label2ind)
         val = label2ind[key]
         ind2label[val] = key
     end
-    labels = Array{ASCIIString}(length(ind2label))
-    for i in range(1,length(ind2label))
-        labels[i] = ind2label[i]
-    end
+    # labels = Array{ASCIIString}(length(ind2label))
+    # for i in range(1,length(ind2label))
+    #     labels[i] = ind2label[i]
+    # end
 
     coo_m = occur* occur.'
-    COO = COOccurence(coo_m, labels)
+    COO = COOccurence(coo_m, ind2label)
     return COO
 end
 
@@ -93,8 +93,8 @@ function pmi(coo_matrix)
     conditional = coo_matrix./cooccurrence_diagonal
 
     # PMI (point-wise mutual information) P(X,Y)/P(X)P(Y)
-    pmi = conditional'./cooccurrence_diagonal
-
+    pmi_full = conditional'./cooccurrence_diagonal
+    # pmi = LowerTriangular(pmi_full)
 end
 
 """
