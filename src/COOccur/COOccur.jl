@@ -10,7 +10,7 @@ type COOccurence
     "coo_matrix"
     coo_matrix::SparseMatrixCSC{Float64,Int64}
     "ind2labels"
-    ind2labels::Dict{Int, ASCIIString}
+    ind2labels::Dict{Int, String}
 end
 
 # Note: Sample input occurrance files are those generated with PubMedMiner.jl
@@ -22,7 +22,7 @@ function occur2coo(occur, label2ind)
         val = label2ind[key]
         ind2label[val] = key
     end
-    # labels = Array{ASCIIString}(length(ind2label))
+    # labels = Array{String}(length(ind2label))
     # for i in range(1,length(ind2label))
     #     labels[i] = ind2label[i]
     # end
@@ -52,9 +52,9 @@ Compute correlation coeffiecients for a occurence data matrix
 
 * `occur`: Occurrence data matrix
 """
-function corrcoef(occur)
+function corrcoef(occur; vardim = 1)
     # compute the covariance matrix
-    C = cov(occur, vardim=2)
+    C = cov(occur, vardim)
 
     # the correlation coefficients are given by
     # C_{i,j} / sqrt(C_{ii} * C_{jj})
@@ -85,7 +85,7 @@ joint event to the product of the individual events
 
 * `pmi`:PMI matrix (symmetric matrix)
 """
-function pmi(coo_matrix)
+function pmi_mat(coo_matrix)
     d = diag(coo_matrix)
 
     #Compute conditionals P(X,Y)/P(X)
@@ -113,15 +113,15 @@ Null hypothesis = p(x,y) = p(x)p(y)
 
 * `chi2`:Matrix of Chi Square Statistics  (symmetric matrix)
 """
-function chi2_statistic(occur; min_freq=5)
+function chi2_mat(occur; min_freq=5)
 
-    nsamples, nvars = size(occur)
+    nvars = size(occur, 2)
     chi2 = LowerTriangular(zeros(nvars, nvars))
     for j1=1:nvars
         x = occur[:,j1]
         for j2=j1+1:nvars
             y = occur[:,j2]
-            chi2[j2, j1] = chi2_statistic(x,y,span(occur); min_freq=5)
+            chi2[j2, j1] = chi2_statistic(x,y,span(occur); min_freq=min_freq)
         end
     end
     return chi2

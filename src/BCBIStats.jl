@@ -16,7 +16,8 @@ export COOccurence,
        read_sp_occur,
        read_occur_label_dict,
        corrcoef,
-       pmi
+       pmi_mat,
+       chi2_mat
 
 include("COOccur/COOccur.jl")
 

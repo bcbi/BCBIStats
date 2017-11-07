@@ -14,8 +14,8 @@ function power_divergence_statistic{T<:Integer}(x::Matrix{T};
   nrows, ncols = size(x)
   n = sum(x)
 
-  #validate date
-  any( x .< 0) || any( !isfinite(x)) ? error("all entries must be nonnegative and finite") : nothing
+  #validate
+  any( x .< 0) || any( .!isfinite.(x)) ? error("all entries must be nonnegative and finite") : nothing
   n == 0 ? error("at least one entry must be positive") : nothing
   isfinite(nrows) && isfinite(ncols) && isfinite(nrows*ncols) ? nothing : error("Invalid number of rows or columns")
 
