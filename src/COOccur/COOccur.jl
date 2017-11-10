@@ -63,7 +63,7 @@ function corrcoef(occur; vardim = 1)
     BLAS.ger!(1.0, d, d, CiiCjj) #CiiCjj += d*d'
 
     #should we devectorize?
-    coeffs = C./sqrt(CiiCjj)
+    coeffs = C./sqrt.(CiiCjj)
 
     return coeffs
 
