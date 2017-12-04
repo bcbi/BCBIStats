@@ -5,6 +5,7 @@
 # lambda -> -1: Converges to minimum discrimination information statistic (Gokhale, Kullback 1978)
 # lambda =  -2: Neyman Modified chi-squared statistic (Neyman 1949)
 # lambda = -.5: Freeman-Tukey statistic (Freeman, Tukey 1950)
+# Mirror functionality of https://github.com/JuliaStats/HypothesisTests.jl/blob/master/src/power_divergence.jl
 
 # Under regularity conditions, their asymptotic distributions are all the same (Drost 1989)
 # Chi-squared null approximation works best for lambda near 2/3

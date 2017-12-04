@@ -1,9 +1,6 @@
 using BCBIStats
 using Base.Test
 
-# write your own tests here
-@test 1 == 1
-
 my_tests = ["cooccur.jl"]
 
 println("Running tests:")
