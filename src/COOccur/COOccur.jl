@@ -87,13 +87,14 @@ joint event to the product of the individual events
 """
 function pmi_mat(coo_matrix)
     d = diag(coo_matrix)
+    N = size(coo_matrix)[2]
 
     #Compute conditionals P(X,Y)/P(X)
     cooccurrence_diagonal = diag(coo_matrix)
     conditional = coo_matrix./cooccurrence_diagonal
 
     # PMI (point-wise mutual information) P(X,Y)/P(X)P(Y)
-    pmi_full = conditional'./cooccurrence_diagonal
+    pmi_full = log.(N*(conditional'./cooccurrence_diagonal))
     # pmi = LowerTriangular(pmi_full)
 end
 
