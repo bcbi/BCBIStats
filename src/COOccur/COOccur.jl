@@ -85,7 +85,7 @@ joint event to the product of the individual events
 
 * `pmi`:PMI matrix (symmetric matrix)
 """
-function pmi_mat(coo_matrix)
+function pmi_mat(coo_matrix, N)
     d = diag(coo_matrix)
 
     #Compute conditionals P(X,Y)/P(X)
