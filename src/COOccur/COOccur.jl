@@ -93,7 +93,7 @@ function pmi_mat(coo_matrix)
     conditional = coo_matrix./cooccurrence_diagonal
 
     # PMI (point-wise mutual information) P(X,Y)/P(X)P(Y)
-    pmi_full = log.(N*(conditional'./cooccurrence_diagonal))
+    pmi_full = log.((N .* conditional') ./ cooccurrence_diagonal))
     # pmi = LowerTriangular(pmi_full)
 end
 
