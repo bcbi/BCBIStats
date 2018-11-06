@@ -16,7 +16,7 @@ try
   global occur = read_sp_occur(occur_file)
   global label2ind = read_occur_label_dict(labels_file)
 catch
-  continue
+  nothing
 end
 
 COO = occur2coo(occur, label2ind)
