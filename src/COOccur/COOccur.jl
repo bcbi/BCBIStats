@@ -70,7 +70,7 @@ function corrcoef(occur; vardim = 1)
 end
 
 """
-    pmi(coo_matrix)
+    pmi_mat(coo_matrix, N)
 
 Point-wise mutual information from co-occurrence  matrix
 
