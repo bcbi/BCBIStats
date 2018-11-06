@@ -22,7 +22,7 @@ end
 COO = occur2coo(occur, label2ind)
 
 corr = corrcoef(occur)
-pmi = pmi(COO.coo_matrix, sum(occur))
+pmi = pmi_mat(COO.coo_matrix, sum(occur))
 
 
 
