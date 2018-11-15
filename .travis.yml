@@ -4,7 +4,8 @@ os:
   - linux
   - osx
 julia:
-  - 0.6
+  - 0.7
+  - 1.0
 notifications:
   email: false
 addons:
@@ -13,4 +14,4 @@ addons:
     - hdf5-tools
 script:
  - if [[ -a .git/shallow ]]; then git fetch --unshallow; fi
- - julia -e 'Pkg.clone(pwd()); Pkg.build("BCBIStats"); Pkg.test("BCBIStats")'
+ - julia -e 'import Pkg; Pkg.build(); Pkg.test("BCBIStats")'

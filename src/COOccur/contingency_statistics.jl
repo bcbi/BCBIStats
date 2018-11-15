@@ -9,8 +9,8 @@
 
 # Under regularity conditions, their asymptotic distributions are all the same (Drost 1989)
 # Chi-squared null approximation works best for lambda near 2/3
-function power_divergence_statistic{T<:Integer}(x::Matrix{T};
-                                                lambda=1, min_freq=5)
+function power_divergence_statistic(x::Matrix{T};
+                                                lambda=1, min_freq=5) where T<:Integer
 
   nrows, ncols = size(x)
   n = sum(x)
@@ -23,12 +23,12 @@ function power_divergence_statistic{T<:Integer}(x::Matrix{T};
 
 
   if nrows > 1 && ncols > 1
-    rowsums = mapslices(sum, x, 2)
-    colsums = mapslices(sum, x, 1)
+    rowsums = mapslices(sum, x, dims=2)
+    colsums = mapslices(sum, x, dims=1)
     df = (nrows-1)*(ncols-1)
     xhat = rowsums * colsums / n
     if( minimum(x) < min_freq )
-        println("Warning: Min frequecy requirement violated:", minimum(x) ," - returning NaN")
+        @warn "Min frequecy requirement violated - returning NaN:" minimum(x)
         return NaN
     end
    else
@@ -58,45 +58,45 @@ end
 
 
 #Chi2 Statictic
-function chi2_statistic{T<:Integer}(x::AbstractMatrix{T}; min_freq=5)
+function chi2_statistic(x::AbstractMatrix{T}; min_freq=5) where T<:Integer
   power_divergence_statistic(x,lambda=1.0, min_freq=min_freq)
 end
 
-function chi2_statistic{T<:Integer}(x::AbstractVector{T}, y::AbstractVector{T},
-                        levels::UnitRange{T}; min_freq=5)
+function chi2_statistic(x::AbstractVector{T}, y::AbstractVector{T},
+                        levels::UnitRange{T}; min_freq=5) where T<:Integer
   d = counts(x,y,levels)
   power_divergence_statistic(d,lambda=1.0, min_freq=min_freq)
 end
 
 #Likelihood ratio (G2) Statictic
-function likelihood_ratio{T<:Integer}(x::AbstractMatrix{T}; min_freq=5)
+function likelihood_ratio(x::AbstractMatrix{T}; min_freq=5) where T<:Integer
   power_divergence_statistic(x,lambda=0, min_freq=min_freq)
 end
 
-function likelihood_ratio{T<:Integer}(x::AbstractVector{T}, y::AbstractVector{T},
-                                      levels::UnitRange{T}; min_freq=5)
+function likelihood_ratio(x::AbstractVector{T}, y::AbstractVector{T},
+                                      levels::UnitRange{T}; min_freq=5) where T<:Integer
   d = counts(x,y,levels)
   power_divergence_statistic(d,lambda=0, min_freq=min_freq)
 end
 
 #Minimum discrimination information
-function mod_likelihood_ratio{T<:Integer}(x::AbstractMatrix{T}; min_freq=5)
+function mod_likelihood_ratio(x::AbstractMatrix{T}; min_freq=5) where T<:Integer
   power_divergence_statistic(x,lambda=-1, min_freq=min_freq)
 end
 
-function mod_likelihood_ratio{T<:Integer}(x::AbstractVector{T}, y::AbstractVector{T},
-                                          levels::UnitRange{T}; min_freq=5)
+function mod_likelihood_ratio(x::AbstractVector{T}, y::AbstractVector{T},
+                                          levels::UnitRange{T}; min_freq=5) where T<:Integer
   d = counts(x,y,levels)
   power_divergence_statistic(d,lambda=-1, min_freq=min_freq)
 end
 
 #Neyman's Statistic
-function neyman_statistic{T<:Integer}(x::AbstractMatrix{T}; min_freq=5)
+function neyman_statistic(x::AbstractMatrix{T}; min_freq=5) where T<:Integer
   power_divergence_statistic(x,lambda=-2, min_freq=min_freq)
 end
 
-function neyman_statistic{T<:Integer}(x::AbstractVector{T}, y::AbstractVector{T},
-                                          levels::UnitRange{T}; min_freq=5)
+function neyman_statistic(x::AbstractVector{T}, y::AbstractVector{T},
+                                          levels::UnitRange{T}; min_freq=5) where T<:Integer
   d = counts(x,y,levels)
   power_divergence_statistic(d,lambda=-2, min_freq=min_freq)
 end

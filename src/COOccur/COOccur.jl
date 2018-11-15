@@ -2,14 +2,14 @@
 using JLD2
 using Distributions
 using StatsBase
+using LinearAlgebra
+using SparseArrays
 
 """
     COOccurence(coo_matrix, labels)
 """
-type COOccurence
-    "coo_matrix"
+mutable struct COOccurence
     coo_matrix::SparseMatrixCSC{Float64,Int64}
-    "ind2labels"
     ind2labels::Dict{Int, String}
 end
 
@@ -27,7 +27,7 @@ function occur2coo(occur, label2ind)
     #     labels[i] = ind2label[i]
     # end
 
-    coo_m = occur* occur.'
+    coo_m = occur * transpose(occur)
     COO = COOccurence(coo_m, ind2label)
     return COO
 end
@@ -54,7 +54,7 @@ Compute correlation coeffiecients for a occurence data matrix
 """
 function corrcoef(occur; vardim = 1)
     # compute the covariance matrix
-    C = cov(occur, vardim)
+    C = cov(occur, dims=vardim)
 
     # the correlation coefficients are given by
     # C_{i,j} / sqrt(C_{ii} * C_{jj})
