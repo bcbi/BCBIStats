@@ -28,8 +28,8 @@ pmi = pmi_mat(COO.coo_matrix, sum(occur))
 
 d = counts(x,y, span(occur))
 stat = chi2_statistic(x,y,span(occur))
-@test_approx_eq stat  0.4057853910795092
+@test isapprox(stat,  0.4057853910795092)
 stat = chi2_statistic(d)
-@test_approx_eq stat  0.4057853910795092
+@test isapprox(stat, 0.4057853910795092)
 stat = chi2_statistic(d, min_freq=6)
 @test isnan(stat)
