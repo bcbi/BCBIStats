@@ -1,7 +1,7 @@
 name = "BCBIStats"
 uuid = "48783b15-cd14-4fd8-8548-4e67ed2227f5"
 author = ["Brown Center for Biomedical Informatics"]
-version = "0.0.0"
+version = "0.0.1"
 
 [deps]
 Distributions = "31c24e10-a181-5473-b8eb-7969acd0382f"
